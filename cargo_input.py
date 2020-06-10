@@ -1,6 +1,10 @@
 import pandas as pd
 import socket
 from simple_zpl2 import ZPLDocument, Code128_Barcode
+from PIL import Image
+import io
+
+
 
 # Input alma
 while True:
@@ -22,9 +26,18 @@ while True:
                 zdoc.add_field_origin(20, 20)
                 zdoc.add_print_quantity(2)
                 code128_data = str(new_barcode_)
-                bc = Code128_Barcode(code128_data, 'N', 30, 'Y')
+                bc = Code128_Barcode(code128_data, 'N', 100, 'Y')
                 zdoc.add_barcode(bc)
-                print(zdoc.zpl_text)                                                                                                                              
+                print(zdoc.zpl_text)
+
+                # Get PNG byte array
+                png = zdoc.render_png(label_width=2, label_height=1)
+                # render fake file from bytes
+                fake_file = io.BytesIO(png)
+                img = Image.open(fake_file)
+                # Open image with the default image viewer on your system
+                img.show()
+
                 
             else:
                 pass
