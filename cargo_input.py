@@ -4,8 +4,6 @@ from simple_zpl2 import ZPLDocument, Code128_Barcode
 from PIL import Image
 import io
 
-
-
 # Input alma
 while True:
     readed_barcode_ = ""
